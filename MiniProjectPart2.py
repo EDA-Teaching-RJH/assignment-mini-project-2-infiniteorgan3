@@ -45,13 +45,30 @@ def saveaccounts():
                 pass
             else:
                 writer.append(i)
-            
-        
-        
+
+def deleteaccount(userid):
+    attemptedresultreturn = [account for account in listofusers if account.userid == userid]
+    if attemptedresultreturn != []:
+        listofusers.remove(attemptedresultreturn)
+        with open("accounttext.txt", "w") as writer:
+            for i in listofusers:
+                writer.write(i)
+                
+def searchforaccount(username):
+    pattern = r"$" + username
+    with open("accounttext.txt", "r") as reader:
+        filestring = reader.read()
+    matches = re.findall(pattern, filestring)
+    if len(matches) == 0:
+        print("There are no matches found with the search.")
+    else:
+        print("The found users are:")
+        for i in matches:
+            print(i)   
     
 def validateemail(email):
     reasons = []
-    if re.search(r"$(\w |(-|_|\.)(\w))+@[A-Za-z](\w |-\w)+\.[A-Za-z]{2,}", email) == None:
+    if re.search(r"$(\w |(-|_|\.)(\w))+@[A-Za-z](\w |(-|\.)\w)+\.[A-Za-z]{2,}^", email) == None:
         reasons.append("This email has an invalid format.")
         return reasons
     return email
@@ -73,4 +90,4 @@ def validatepassword(password):
         return reasons
     return password
 
-    
+def main()

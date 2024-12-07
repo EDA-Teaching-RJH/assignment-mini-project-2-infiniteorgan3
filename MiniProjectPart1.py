@@ -4,11 +4,13 @@ import random
 class UserAccount:
     def __init__(self, username, password, email, userid, listofotherusers = None):
         if not username or self.checkusername(username, listofotherusers):
-            raise ValueError("The username is already taken.")
+            raise ValueError("The username is already taken or is invalid.")
         self.username = username
+        if not email:
+            raise ValueError("The email is invalid.")
         self.email = email
         if not password:
-            raise ValueError("The password entered is not valid.")
+            raise ValueError("The password entered is invalid.")
         self.password = password
         self.userid = self.assignuserid(listofotherusers)
         

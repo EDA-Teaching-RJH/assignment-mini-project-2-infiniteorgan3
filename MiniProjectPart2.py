@@ -8,28 +8,33 @@ def createaccount():
     username = ""
     while type(validateusername(username)) == list and attempts > 0:
         reasonsforinvalid = validateusername(username)
-        for i in reasonsforinvalid:
-            print(i)
+        if attempts != 3:
+            for i in reasonsforinvalid:
+                print(i)
         username = input("Please enter a username for the account:\n").strip()
         attempts -= 1
     password = ""
     while type(validatepassword(password)) == list and attempts > 0:
         reasonsforinvalid = validatepassword(password)
-        for i in reasonsforinvalid:
-            print(i)
+        if attempts != 3:
+            for i in reasonsforinvalid:
+                print(i)
         password = input("Please enter the password for the account:\n")
         attempts -= 1
     email = ""
-    while type(validateemail(email)) == list:
+    while type(validateemail(email)) == list and attempts > 0:
         reasonsforinvalid = validateemail(email)
-        for i in reasonsforinvalid:
-            print(i)
+        if attempts != 3:
+            for i in reasonsforinvalid:
+                print(i)
         email = input("Please enter your email:\n")
         attempts -= 1
     try:
         newuser = MiniProjectPart1.UserAccount(username, password, email, listofusers)
     except ValueError:
         print("The user account could not be created, please try again.")
+    else:
+        listofusers.append()
         
     
 def validateemail(email):

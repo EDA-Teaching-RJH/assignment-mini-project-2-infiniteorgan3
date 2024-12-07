@@ -35,6 +35,18 @@ def createaccount():
         print("The user account could not be created, please try again.")
     else:
         listofusers.append()
+    
+def saveaccounts():
+    with open("accounttext.txt", "a") as writer:
+        with open("accounttext.txt", "r") as reader:
+            lines = reader.read()
+        for i in listofusers:
+            if i in lines:
+                pass
+            else:
+                writer.append(i)
+            
+        
         
     
 def validateemail(email):

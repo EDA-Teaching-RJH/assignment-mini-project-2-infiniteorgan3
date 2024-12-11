@@ -24,46 +24,67 @@ def createaccount():
     while validateemail(email) == None and attempts > 0:
         email = input("Please enter your email:\n")
         attempts -= 1
+    typeaccount = None
+    isstudent = False
+    attempts = 3
+    while typeaccount not in ["student", "unaffiliated"] and attempts > 0:
+        typeaccount =  input("Are you a student or unaffiliated with the university?\n").lower().strip()
+        attempts -= 1
+    if attempts == 0:
+        print("You did not enter a valid type of account.")
+        return None
+    match typeaccount:
+        case "student":
+            isstudent = True
+        case "unaffiliated":
+            isstudent = False        
     try:
-        newuser = MiniProjectPart1.UserAccount(username, password, email, listofusers)
+        if isstudent == False:
+            newuser = MiniProjectPart1.UserAccount(username, password, email, listofusers)
+        else:
+            coursesubject = input("What course are you studying?\n").upper().strip()
+            newuser = MiniProjectPart1.StudentAccount(username, password, email, coursesubject, listofusers)
     except ValueError:
         print("The user account could not be created, please try again.")
     else:
         listofusers.append(newuser)
     
 def saveaccounts():
-    with open("accounttext.txt", "a") as writer:
-        with open("accounttext.txt", "r") as reader:
-            lines = reader.read()
-        for i in listofusers:
-            if i in lines:
-                pass
-            else:
-                writer.append(i)
-                
-                
-    with open("allaccountinfo.csv","")
+    dataentries = ["UserID","Username","Email","Password"]
+    rows= []
+    for i in listofusers:
+        rows.append([i.userid, i.username, i.email, i.password])
+    
+    with open("allaccountinfo.csv","w") as csvfile:
+        csvwriter = csv.writer(csvfile)
+        csvwriter.writerow(dataentries)
+        csvwriter.writerows(rows)
+
     print("All of the accounts' information has been saved.")
 
 def deleteaccount(userid):
     attemptedresultreturn = [account for account in listofusers if account.userid == userid]
     if attemptedresultreturn != []:
         listofusers.remove(attemptedresultreturn)
-        with open("accounttext.txt", "w") as writer:
-            for i in listofusers:
-                writer.write(i)
+        saveaccounts()
                 
 def searchforaccount(username):
-    pattern = r"$" + username
-    with open("accounttext.txt", "r") as reader:
-        filestring = reader.read()
-    matches = re.findall(pattern, filestring)
-    if len(matches) == 0:
-        print("There are no matches found with the search.")
-    else:
-        print("The found users are:")
-        for i in matches:
-            print(i)   
+    usernamelist = []
+    try:
+        file = open("allaccountinfo.csv", "r")
+        reader = csv.reader(file)
+        for lines in reader:
+            usernamelist.append(lines[1])
+        file.close()
+        if username in usernamelist:
+            print("A user has been found.")
+            return [user for user in listofusers if user.username == username]
+        else:
+            print("There was no user found.")
+            return None
+    except FileNotFoundError:
+        saveaccounts()
+            
     
 def validateemail(email):
     if re.search(r"$(\w|(-|_|\.)(\w))+@[A-Za-z](\w |(-|\.)\w)+\.[A-Za-z]{2,}^", email) == None:
@@ -87,7 +108,15 @@ def validatepassword(password):
         return None
     return password
 
-def saveoneaccount():
+def saveoneaccount(username):
+    useraccount = [account for account in listofusers if account.username == username]
+    if len(useraccount) == 0:
+        print("Sorry, the account details could not be saved.")
+    else:
+        with open("accounttext.txt", "a") as writer:
+            writer.write(useraccount)
+        print("The account details were saved.")
+    
 
 def main():
     continuation = True
@@ -105,16 +134,21 @@ def main():
             case "create":
                 createaccount()
             case "search":
-                # add code
-                searchforaccount()
+                username = input("What is the username of the account for which you would like to search?n#\n").strip()
+                searchforaccount(username)
             case "delete":
-                # delete
-                deleteaccount()
+                userid = input("What is the user id of the account that you would like to delete?\n").strip()
+                deleteaccount(userid)
             case "save all":
                 saveaccounts()
             case "save one":
-                # add code
-                saveoneaccount()
+                username = input("What is the username of the account that you would like to save to a text file?\n").strip()
+                saveoneaccount(username)
+        attempts = 3
+        contchoice = ""
+        while contchoice not in ["y", "n"] and attempts > 0:
+            contchoice = input("Would you like to continue running the program? y/n\n")
+            attempts -= 1
             
         
 

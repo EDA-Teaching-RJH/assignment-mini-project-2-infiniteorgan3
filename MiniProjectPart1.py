@@ -1,7 +1,7 @@
 import random
 # account system:
 class UserAccount:
-    def __init__(self, username, password, email, userid, listofotherusers = None):
+    def __init__(self, username, password, email, listofotherusers = None):
         if not username or self.checkusername(username, listofotherusers) == "":
             raise ValueError("The username is already taken or is invalid.")
         self.username = username
@@ -14,7 +14,7 @@ class UserAccount:
         self.userid = self.assignuserid(listofotherusers)
     
     def __str__(self):
-        return f"UserID: {self.userid}: Username: {self.username}, Email: {self.email}"
+        return f"UserID: {self.userid}: Username: {self.username}, Email: {self.email}, Password: {self.password}"
     
     def assignuserid(self, listofusers):
         uid = 0
@@ -29,4 +29,22 @@ class UserAccount:
             return ""
         return username
     
+class StudentAccount(UserAccount):
+    def __init__(self, username, password, email, coursesubject):
+        UserAccount.__init__(self, username, password, email, listofotherusers=None)
+        if coursesubject not in ["BIO","CHEM","EEE","ECE","MECHE","BIOE","PHY","PSYCH","SOCIO","ENGL","MATHS","HIST","GEO","MED","VET"]:
+            raise ValueError("The course subject is invalid.")
+        self.coursesubject = coursesubject
     
+    def __str__(self):
+        return f"UserID: {self.userid}: Username: {self.username}, Email: {self.email}, Password: {self.password}, Subject: {self.coursesubject}"
+    
+    @coursesubject.setter
+    def coursesubject(self, coursesubject):
+        if coursesubject not in ["BIO","CHEM","EEE","ECE","MECHE","BIOE","PHY","PSYCH","SOCIO","ENGL","MATHS","HIST","GEO","MED","VET"]:
+            raise ValueError("The course subject is invalid.")
+        self._coursesubject = coursesubject
+
+    @property
+    def coursesubject(self):
+        return self._coursesubject

@@ -92,8 +92,7 @@ def searchforaccount(username, listofusers):
             return None
     except FileNotFoundError:
         saveaccounts()
-            
-    
+                
 def validateemail(email):
     if re.search(r"$(\w|(-|_|\.)(\w))+@[A-Za-z](\w |(-|\.)\w)+\.[A-Za-z]{2,}^", email) == None:
         print("This email has an invalid format.")
@@ -105,14 +104,17 @@ def validateusername(username):
     if re.search(r"[\w\.-]{5, }", username) == None:
         if len(username) < 5:
             reasons.append("The username is too short.")
-        if re.search(r"[^\w\.-]", username):
+        if re.search(r"(.)*[^\w\.-](.)*", username):
             reasons.append("The username contains invalid characters.")
         return reasons
     return username
 
 def validatepassword(password):
-    if re.search(r"[\w\.\+-*=#\(\)&!?%]{8, }"):
-        print("The password is invalid because it is too short or contains invalid characters.")
+    if re.search(r"[\w\.\+-*=#\(\)&!?%]{8, }") == None:
+        if len(password) < 8:
+            print("The password is invalid because it is too short.")
+        if re.search(r"(.)*[^\w\.\+-*=#\(\)&!?%](.)*"):
+            print("The password is invalid because it contains invalid characters.")
         return None
     return password
 

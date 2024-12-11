@@ -240,10 +240,7 @@ def main():
             contchoice = "n"
         if contchoice == "n":
             print("Thank you for using the program.")
-            continuation = "n"
+            continuation = False
         
-            
-        
-
 if __name__ == "__main__":
     main()

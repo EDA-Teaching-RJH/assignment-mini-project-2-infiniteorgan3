@@ -1,7 +1,7 @@
 import random
 # account system:
 class UserAccount:
-    def __init__(self, username, password, email, listofotherusers = None):
+    def __init__(self, username, password, email, listofotherusers = None, userid = None):
         if not username or self.checkusername(username, listofotherusers) == "":
             raise ValueError("The username is already taken or is invalid.")
         self.username = username
@@ -11,10 +11,31 @@ class UserAccount:
         if not password:
             raise ValueError("The password entered is invalid.")
         self.password = password
-        self.userid = self.assignuserid(listofotherusers)
+        if userid == None:
+            self.userid = self.assignuserid(listofotherusers)
+        # This is only used when the user is changing the type of their account, and so their unique user id has already been assigned.
+        else:
+            self.userid = userid
+            
     
     def __str__(self):
         return f"UserID: {self.userid}: Username: {self.username}, Email: {self.email}, Password: {self.password}"
+    
+    @property
+    def userid(self):
+        return self._userid
+    
+    @property
+    def password(self):
+        return self._password
+    
+    @property
+    def email(self):
+        return self._email
+    
+    @property
+    def username(self):
+        return self._username
     
     def assignuserid(self, listofusers):
         uid = 0
@@ -30,8 +51,8 @@ class UserAccount:
         return username
     
 class StudentAccount(UserAccount):
-    def __init__(self, username, password, email, coursesubject):
-        UserAccount.__init__(self, username, password, email, listofotherusers=None)
+    def __init__(self, username, password, email, coursesubject, listofusers = None, userid = None):
+        UserAccount.__init__(self, username, password, email, listofotherusers = None, userid = None)
         if coursesubject not in ["BIO","CHEM","EEE","ECE","MECHE","BIOE","PHY","PSYCH","SOCIO","ENGL","MATHS","HIST","GEO","MED","VET"]:
             raise ValueError("The course subject is invalid.")
         self.coursesubject = coursesubject

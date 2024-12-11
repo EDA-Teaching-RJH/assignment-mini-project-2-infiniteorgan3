@@ -1,5 +1,6 @@
 import MiniProjectPart1
 import re
+import csv
 
 listofusers = []
 def createaccount():
@@ -14,19 +15,13 @@ def createaccount():
         username = input("Please enter a username for the account:\n").strip()
         attempts -= 1
     password = ""
-    while type(validatepassword(password)) == list and attempts > 0:
-        reasonsforinvalid = validatepassword(password)
-        if attempts != 3:
-            for i in reasonsforinvalid:
-                print(i)
+    attempts = 3
+    while validatepassword(password) == None and attempts > 0:
         password = input("Please enter the password for the account:\n")
         attempts -= 1
     email = ""
-    while type(validateemail(email)) == list and attempts > 0:
-        reasonsforinvalid = validateemail(email)
-        if attempts != 3:
-            for i in reasonsforinvalid:
-                print(i)
+    attempts = 3
+    while validateemail(email) == None and attempts > 0:
         email = input("Please enter your email:\n")
         attempts -= 1
     try:
@@ -34,7 +29,7 @@ def createaccount():
     except ValueError:
         print("The user account could not be created, please try again.")
     else:
-        listofusers.append()
+        listofusers.append(newuser)
     
 def saveaccounts():
     with open("accounttext.txt", "a") as writer:
@@ -45,6 +40,10 @@ def saveaccounts():
                 pass
             else:
                 writer.append(i)
+                
+                
+    with open("allaccountinfo.csv","")
+    print("All of the accounts' information has been saved.")
 
 def deleteaccount(userid):
     attemptedresultreturn = [account for account in listofusers if account.userid == userid]
@@ -67,10 +66,9 @@ def searchforaccount(username):
             print(i)   
     
 def validateemail(email):
-    reasons = []
-    if re.search(r"$(\w |(-|_|\.)(\w))+@[A-Za-z](\w |(-|\.)\w)+\.[A-Za-z]{2,}^", email) == None:
-        reasons.append("This email has an invalid format.")
-        return reasons
+    if re.search(r"$(\w|(-|_|\.)(\w))+@[A-Za-z](\w |(-|\.)\w)+\.[A-Za-z]{2,}^", email) == None:
+        print("This email has an invalid format.")
+        return None
     return email
         
 def validateusername(username):
@@ -84,10 +82,41 @@ def validateusername(username):
     return username
 
 def validatepassword(password):
-    reasons = []
     if re.search(r"[\w\.\+-*=#\(\)&!?%]{8, }"):
         print("The password is invalid because it is too short or contains invalid characters.")
-        return reasons
+        return None
     return password
 
-def main()
+def saveoneaccount():
+
+def main():
+    continuation = True
+    while continuation == True:
+        validchoices = ["create","search","delete","save all", "save one"]
+        print("Welcome to the program to save and create user accounts, the options for utilising the program are:\n1. Creating a New Account.\n2. Searching for a user account.\n3. Deleting a user account.\n4. Saving all of the accounts to a file.\n5. Saving the information of one account.")
+        inputchoice = ""
+        attempts = 3
+        while inputchoice not in validchoices and attempts > 0:
+            inputchoice = input("What would you like to do?").lower().strip()
+        if attempts == 0:
+            print("No request was made and so the program will close.")
+            break
+        match inputchoice:
+            case "create":
+                createaccount()
+            case "search":
+                # add code
+                searchforaccount()
+            case "delete":
+                # delete
+                deleteaccount()
+            case "save all":
+                saveaccounts()
+            case "save one":
+                # add code
+                saveoneaccount()
+            
+        
+
+if __name__ == "__main__":
+    main()

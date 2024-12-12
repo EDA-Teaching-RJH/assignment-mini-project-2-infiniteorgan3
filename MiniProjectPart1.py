@@ -1,5 +1,5 @@
 import random
-# account system:
+# This file contains the classes that are used within the main program.
 class UserAccount:
     def __init__(self, username, password, email, listofotherusers = None, userid = None):
         if not username or self.checkusername(username, listofotherusers) == "":

@@ -273,11 +273,12 @@ def initialiselistofaccounts():
             # Ensuring that the headers are not included and attempted to be processed as users.
             next(reader)
             for row in reader:
+                rowsplit = row.split(",")
                 # Processing the values stored in the files and adding them to the list of users as either student or general user accounts by creating objects with the same values.
                 if row[4] == "Yes":
-                    listofusers.append(MiniProjectPart1.StudentAccount(row[1], row[3], row[2], row[5], int(row[0])))
+                    listofusers.append(MiniProjectPart1.StudentAccount(rowsplit[1], rowsplit[3], rowsplit[2], rowsplit[5], int(rowsplit[0])))
                 else:
-                    listofusers.append(MiniProjectPart1.UserAccount(row[1], row[3], row[2], int(row[0])))
+                    listofusers.append(MiniProjectPart1.UserAccount(rowsplit[1], rowsplit[3], rowsplit[2], int(rowsplit[0])))
     except FileNotFoundError:
         pass
     # Returns an empty list if the file does not exist or a list of values if it already exists.

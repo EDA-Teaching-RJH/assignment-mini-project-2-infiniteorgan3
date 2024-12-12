@@ -31,7 +31,7 @@ class UserAccount:
 
     @username.setter
     def username(self, username):
-        if not username or self.checkusername(username, self.listofotherusers) == "":
+        if not username:
             raise ValueError("The username is already taken or is invalid.")
         self._username = username
     

@@ -107,7 +107,7 @@ def validateusername(username):
     if re.search(regexpattern, username) == None:
         if len(username) < 5:
             reasons.append("The username is too short.")
-        if re.search(r"(.)*[^\w.-](.)*", username):
+        if re.search(r"(.)*[^\w.](.)*", username):
             reasons.append("The username contains invalid characters.")
         return reasons
     else:

@@ -94,7 +94,7 @@ def searchforaccount(username, listofusers):
         saveaccounts()
                 
 def validateemail(email):
-    regexpattern = r"^[A-Za-z0-9]+([\.-_]?[A-Za-z0-9]+)*@\w+(\.(\w{2, }))+$"
+    regexpattern = r"^[A-Za-z0-9]+([\.-_]?[A-Za-z0-9]+)*@\w+(\.(\w{2,}))+$"
     if re.search(regexpattern, email) == None:
         print("This email has an invalid format.")
         return None
@@ -103,7 +103,7 @@ def validateemail(email):
         
 def validateusername(username):
     reasons = []
-    regexpattern = r"^(([\w\.]){5, })$"
+    regexpattern = r"^(([\w\.]){5,})$"
     if re.search(regexpattern, username) == None:
         if len(username) < 5:
             reasons.append("The username is too short.")

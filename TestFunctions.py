@@ -13,7 +13,7 @@ def testvalidatingusername():
     assert MiniProjectPart2.validateusername("a") == ["The username is too short."]
     assert MiniProjectPart2.validateusername("a.s.t.e.r") == "a.s.t.e.r"
     assert MiniProjectPart2.validateusername("apple_") == "apple_"
-    assert MiniProjectPart2.validateusername("hello-world") == "hello-world"
+    assert MiniProjectPart2.validateusername("hello-world") == ["The username contains invalid characters."]
     assert MiniProjectPart2.validateusername("helloworld") == "helloworld"
     assert MiniProjectPart2.validateusername("£a£(") == ["The username is too short.", "The username contains invalid characters."]
     assert MiniProjectPart2.validateusername("wwwww%w") == ["The username contains invalid characters."]

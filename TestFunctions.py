@@ -1,10 +1,11 @@
 import MiniProjectPart2
-
+# These are the testing functions for my programs as they do not rely upon the existence (and the values contained) of the list of users and the associated files, which requires user input to operate.
 def testvalidatingemail():
     assert MiniProjectPart2.validateemail("ee@kent.ac.uk") == "ee@kent.ac.uk"
     assert MiniProjectPart2.validateemail("test@example.com") == "test@example.com"
     assert MiniProjectPart2.validateemail("t_@@kent.com") == None
     assert MiniProjectPart2.validateemail("t.tkent.c") == None
+    assert MiniProjectPart2.validateemail("tt..p@aa.aa") == None
     assert MiniProjectPart2.validateemail("t%j@example.com") == None
     assert MiniProjectPart2.validateemail("example@kent.ac.uk") == "example@kent.ac.uk"
     assert MiniProjectPart2.validateemail("elliem653@gmail.com") == "elliem653@gmail.com"

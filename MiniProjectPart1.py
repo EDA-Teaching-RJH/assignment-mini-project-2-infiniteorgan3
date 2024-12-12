@@ -47,7 +47,7 @@ class UserAccount:
 # The StudentAccount is a child class of the UserAccount due to the fact that it would be a subset of the general user account and would be saved differently if saved in the main program.
 class StudentAccount(UserAccount):
     def __init__(self, username, password, email, coursesubject, listofusers = None, userid = None):
-        super().__init__(self, username, password, email, listofusers, userid = None)
+        super().__init__(self, username, password, email, listofusers, userid)
         # The unique attribute of the course is defined and validated, only being able to take a value from the below list, otherwise raising a ValueError.
         if coursesubject not in ["BIO","CHEM","EEE","ECE","MECHE","BIOE","PHY","PSYCH","SOCIO","ENGL","MATHS","HIST","GEO","MED","VET"]:
             raise ValueError("The course subject is invalid.")

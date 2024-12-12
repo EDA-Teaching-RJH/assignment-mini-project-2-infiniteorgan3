@@ -269,7 +269,7 @@ def initialiselistofaccounts():
     listofusers = []
     try:
         with open("allaccountinfo.csv", "r") as filereader:
-            hasheader = csv.Sniffer(filereader.readline())
+            hasheader = csv.Sniffer().has_header(filereader.readline())
             filereader.seek(0)
             reader = csv.reader(filereader)
             # Ensuring that the headers are not included and attempted to be processed as users.

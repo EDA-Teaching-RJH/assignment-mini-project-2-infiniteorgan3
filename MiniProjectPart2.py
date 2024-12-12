@@ -95,7 +95,7 @@ def searchforaccount(username, listofusers):
                 
 def validateemail(email):
     regexpattern = re.compile(r"^[A-Za-z0-9]+([A-Za-z0-9]+[_\.\-])*@\w+(\.([A-Za-z]{2,}))+")
-    if re.match(regexpattern, email) == None:
+    if re.search(regexpattern, email) == None:
         print("This email has an invalid format.")
         return None
     else:

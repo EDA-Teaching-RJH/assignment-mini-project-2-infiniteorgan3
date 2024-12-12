@@ -1,6 +1,6 @@
 import MiniProjectPart2
 # These are the testing functions for my programs as they do not rely upon the existence (and the values contained) of the list of users and the associated files, which requires user input to operate.
-# The functions being tested validate specific quantities for the creation of a user account using parameters set by 
+# The functions being tested validate specific quantities for the creation of a user account using parameters set by regular expressions.
 def testvalidatingemail():
     # Multiple levels of domain extensions, (i.e. .ac.uk) should be allowed as a valid email address.
     assert MiniProjectPart2.validateemail("ee@kent.ac.uk") == "ee@kent.ac.uk"

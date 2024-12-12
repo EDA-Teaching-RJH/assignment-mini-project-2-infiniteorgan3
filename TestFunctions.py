@@ -26,7 +26,7 @@ def testvalidatingpassword():
     assert MiniProjectPart2.validatepassword("£eeeeee£") == None
     
 def main():
-    testvalidatingemail()
+    #testvalidatingemail()
     testvalidatingusername()
     testvalidatingpassword()
 

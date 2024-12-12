@@ -94,8 +94,8 @@ def searchforaccount(username, listofusers):
         saveaccounts()
                 
 def validateemail(email):
-    regexpattern = r"^([A-Za-z0-9]+[\.-_]?[A-Za-z0-9]+[@][A-Za-z](([\w]|[\.]|[-])+[A-Za-z]{2,})+"
-    if re.fullmatch(regexpattern, email) == None:
+    regexpattern = r"^([A-Za-z0-9]+[\.-_]?[A-Za-z0-9]+@\w+([.]\w{2, })+$"
+    if re.search(regexpattern, email) == None:
         print("This email has an invalid format.")
         return None
     else:
@@ -103,7 +103,7 @@ def validateemail(email):
         
 def validateusername(username):
     reasons = []
-    if re.match(r"^[-\w.]{5,}$", username) == None:
+    if re.search(r"^[-\w\.]{5,}$", username) == None:
         if len(username) < 5:
             reasons.append("The username is too short.")
         if re.search(r"(.)*[^\w.-](.)*", username):
@@ -116,7 +116,7 @@ def validatepassword(password):
     if re.search(r"[\w.+-*=#()&!?%]{8, }") == None:
         if len(password) < 8:
             print("The password is invalid because it is too short.")
-        if re.search(r"(.)*[^\w.+-*=#()&!?%](.)*"):
+        if re.search(r"(.)*[^\w\.+-*=#()&!?%](.)*"):
             print("The password is invalid because it contains invalid characters.")
         return None
     else:

@@ -186,7 +186,7 @@ def saveoneaccount(username, listofusers):
                         print("The account information is already saved to the file.")
                         # Ending the function if duplicate information is found so that no data is written.
                         return None
-            writer.write(useraccount)
+            writer.write(str(useraccount))
         print("The account details were saved.")
 
 # Editing the course of an account that is a student account and saving the new user data to the CSV file.

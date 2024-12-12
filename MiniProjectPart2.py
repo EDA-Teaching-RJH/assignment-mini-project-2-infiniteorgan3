@@ -120,7 +120,7 @@ def searchforaccount(username, listofusers):
         reader = csv.reader(file)
         # Creating a list of all of the usernames of the accounts that have been created.
         for lines in reader:
-            usernamelist.append(lines[1])
+            usernamelist.append(lines.split(",")[1])
         file.close()
         # Checking whether the username is in the list of all of the usernames, and print an appropriate message and the user information if found.
         if username in usernamelist:

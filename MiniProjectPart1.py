@@ -52,20 +52,22 @@ class UserAccount:
     
 class StudentAccount(UserAccount):
     def __init__(self, username, password, email, coursesubject, listofusers = None, userid = None):
-        UserAccount.__init__(self, username, password, email, listofotherusers = None, userid = None)
+        super().__init__(self, username, password, email, listofotherusers = None, userid = None)
         if coursesubject not in ["BIO","CHEM","EEE","ECE","MECHE","BIOE","PHY","PSYCH","SOCIO","ENGL","MATHS","HIST","GEO","MED","VET"]:
             raise ValueError("The course subject is invalid.")
         self.coursesubject = coursesubject
     
+    
     def __str__(self):
         return f"UserID: {self.userid}: Username: {self.username}, Email: {self.email}, Password: {self.password}, Subject: {self.coursesubject}"
+    
+
+    @property
+    def coursesubject(self):
+        return self._coursesubject
     
     @coursesubject.setter
     def coursesubject(self, coursesubject):
         if coursesubject not in ["BIO","CHEM","EEE","ECE","MECHE","BIOE","PHY","PSYCH","SOCIO","ENGL","MATHS","HIST","GEO","MED","VET"]:
             raise ValueError("The course subject is invalid.")
         self._coursesubject = coursesubject
-
-    @property
-    def coursesubject(self):
-        return self._coursesubject

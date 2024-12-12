@@ -103,7 +103,7 @@ def validateemail(email):
         
 def validateusername(username):
     reasons = []
-    if re.search(r"^([\w\.]){5, }$", username) == None:
+    if re.search(r"^([\w\.]){5, })$", username) == None:
         if len(username) < 5:
             reasons.append("The username is too short.")
         if re.search(r"(.)*[^\w.-](.)*", username):

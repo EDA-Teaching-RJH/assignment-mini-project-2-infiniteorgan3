@@ -103,7 +103,7 @@ def validateemail(email):
         
 def validateusername(username):
     reasons = []
-    if re.search(r"^[-\w\.]{5,}$", username) == None:
+    if re.search(r"^[-\w\.]{5, }$", username) == None:
         if len(username) < 5:
             reasons.append("The username is too short.")
         if re.search(r"(.)*[^\w.-](.)*", username):
@@ -113,10 +113,10 @@ def validateusername(username):
         return username
 
 def validatepassword(password):
-    if re.search(r"[\w.+-*=#()&!?%]{8, }") == None:
+    if re.search(r"[\w.+-*=#()&!?%]{8, }", password) == None:
         if len(password) < 8:
             print("The password is invalid because it is too short.")
-        if re.search(r"(.)*[^\w\.+-*=#()&!?%](.)*"):
+        if re.search(r"(.)*[^\w\.+-*=#()&!?%](.)*", password):
             print("The password is invalid because it contains invalid characters.")
         return None
     else:

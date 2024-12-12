@@ -87,7 +87,7 @@ def saveaccounts(listofusers):
             rows.append([i.userid, i.username, i.email, i.password, "No", "N/A"])
     
     # Writing all of the data of the list of users to the CSV file, overwriting any pre-existing data
-    with open("allaccountinfo.csv","w") as csvfile:
+    with open("allaccountinfo.csv","w", newline = "") as csvfile:
         csvwriter = csv.writer(csvfile)
         csvwriter.writerow(dataentries)
         csvwriter.writerows(rows)
@@ -116,11 +116,11 @@ def deleteaccount(userid, listofusers):
 def searchforaccount(username, listofusers):
     usernamelist = []
     try:
-        file = open("allaccountinfo.csv", "r")
+        file = open("allaccountinfo.csv", "r", newline = "")
         reader = csv.reader(file)
         # Creating a list of all of the usernames of the accounts that have been created.
         for lines in reader:
-            usernamelist.append(lines.split(",")[1])
+            usernamelist.append(lines[1])
         file.close()
         # Checking whether the username is in the list of all of the usernames, and print an appropriate message and the user information if found.
         if username in usernamelist:
@@ -176,9 +176,9 @@ def saveoneaccount(username, listofusers):
     if len(useraccount) == 0:
         print("Sorry, the account details could not be saved.")
     else:
-        with open("accounttext.txt", "a") as writer:
+        with open("accounttext.txt", "a", newline = "") as writer:
             # Checking if the user account information is in the text file, so that duplicate information is not stored.
-            with open("accounttext.txt", "r") as reader:
+            with open("accounttext.txt", "r", newline = "") as reader:
                 lines = reader.readlines()
                 # So that all of the lines can be checked for the data trying to be stored, the data will only be written after all lines have been checked.
                 for line in lines:
@@ -268,7 +268,7 @@ def initialiselistofaccounts():
     # Initialising the list of user accounts from the CSV file in which they are saved.
     listofusers = []
     try:
-        with open("allaccountinfo.csv", "r") as filereader:
+        with open("allaccountinfo.csv", "r", newline="") as filereader:
             hasheader = csv.Sniffer().has_header(filereader.readline())
             filereader.seek(0)
             reader = csv.reader(filereader)

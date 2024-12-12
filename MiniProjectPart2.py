@@ -180,13 +180,13 @@ def saveoneaccount(username, listofusers):
             # Checking if the user account information is in the text file, so that duplicate information is not stored.
             with open("accounttext.txt", "r") as reader:
                 lines = reader.readlines()
-            # So that all of the lines can be checked for the data trying to be stored, the data will only be written after all lines have been checked.
-            for line in lines:
-                if line == str(useraccount):
-                    print("The account information is already saved to the file.")
-                    # Ending the function if duplicate information is found so that no data is written.
-                    return None
-                writer.write(useraccount)
+                # So that all of the lines can be checked for the data trying to be stored, the data will only be written after all lines have been checked.
+                for line in lines:
+                    if line == str(useraccount):
+                        print("The account information is already saved to the file.")
+                        # Ending the function if duplicate information is found so that no data is written.
+                        return None
+            writer.write(useraccount)
         print("The account details were saved.")
 
 # Editing the course of an account that is a student account and saving the new user data to the CSV file.
@@ -272,15 +272,13 @@ def initialiselistofaccounts():
             reader = csv.reader(filereader)
             # Ensuring that the headers are not included and attempted to be processed as users.
             next(reader)
-        for row in reader:
-            # Processing the values stored in the files and adding them to the list of users as either student or general user accounts by creating objects with the same values.
-            if row[4] == "Yes":
-                listofusers.append(MiniProjectPart1.StudentAccount(row[1], row[3], row[2], row[5], int(row[0])))
-            else:
-                listofusers.append(MiniProjectPart1.UserAccount(row[1], row[3], row[2], int(row[0])))
+            for row in reader:
+                # Processing the values stored in the files and adding them to the list of users as either student or general user accounts by creating objects with the same values.
+                if row[4] == "Yes":
+                    listofusers.append(MiniProjectPart1.StudentAccount(row[1], row[3], row[2], row[5], int(row[0])))
+                else:
+                    listofusers.append(MiniProjectPart1.UserAccount(row[1], row[3], row[2], int(row[0])))
     except FileNotFoundError:
-        # If the file does not exist then it should be created, although it will be an empty file initally.
-        saveaccounts(listofusers)
         pass
     # Returns an empty list if the file does not exist or a list of values if it already exists.
     return listofusers              

@@ -54,7 +54,7 @@ class UserAccount:
         return uid
     
     # The username is checked to see if it is unique, returning an empty string so that a ValueError can be raised if the username is identical to one of another user.
-    def checkusername(username, listofusers):
+    def checkusername(self, username, listofusers):
         matches = [account for account in listofusers if account.username == username]
         if len(matches) != 0:
             return ""

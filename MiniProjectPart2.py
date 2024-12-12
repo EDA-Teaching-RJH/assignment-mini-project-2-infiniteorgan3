@@ -205,7 +205,7 @@ def editcourse(userid, listofusers):
             return False
         
         # Checking whether the account is a Student or not, as the process can only proceed if the account is a student account.
-        if isinstance(useraccount, MiniProjectPart1.StudentAccount):
+        if isinstance(useraccount, MiniProjectPart1.StudentAccount) == True:
             # Validating the course to which they would like to change, while limiting the number of attempt they can use to do so. 
             validcourse = False
             attempts = 3
@@ -251,7 +251,7 @@ def changeaccounttype(userid, listofusers):
                     courseinput = input("Please enter the course that the user is entering.").upper()
                 # Ensuring that the course is valid to be added as a parameter of the new student account.
                     try:
-                        listofusers.append(MiniProjectPart1.StudentAccount(useraccount.username, useraccount.password, useraccount.email, courseinput, useraccount.userid))
+                        listofusers.append(MiniProjectPart1.StudentAccount(useraccount.username, useraccount.password, useraccount.email, courseinput, listofusers useraccount.userid))
                         validcourse == True
                         # Removing the old user account if the new student account is instated.
                         listofusers.remove(useraccount)

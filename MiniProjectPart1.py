@@ -25,22 +25,6 @@ class UserAccount:
     def __str__(self):
         return f"UserID: {self.userid}: Username: {self.username}, Email: {self.email}, Password: {self.password}"
     
-    # These are getters for all of the attributes so that their values can be accessed when necessary in the main program.
-    @property
-    def userid(self):
-        return self._userid
-    
-    @property
-    def password(self):
-        return self._password
-    
-    @property
-    def email(self):
-        return self._email
-    
-    @property
-    def username(self):
-        return self._username
     
     # The user ID is iterated, and the value of the current user ID is based on the the length of the total list of users (initialised at the start of the main program).
     def assignuserid(self, listofusers):

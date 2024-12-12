@@ -125,7 +125,7 @@ def searchforaccount(username, listofusers):
         # Checking whether the username is in the list of all of the usernames, and print an appropriate message and the user information if found.
         if username in usernamelist:
             print("A user has been found.")
-            print(str([user for user in listofusers if user.username == username]))
+            print(str((user for user in listofusers if user.username == username)))
         else:
             print("There was no user found.")
     # If the CSV file does not exist, then save the list of users so that the CSV file is created.
@@ -241,8 +241,8 @@ def changeaccounttype(userid, listofusers):
         else:
             # Reinstating a student account as a general user account, only requring the removal of the course variable from the student account as well as removing the old student account version of their account.
             if isinstance(useraccount, MiniProjectPart1.StudentAccount) == True:
-                listofusers.remove(useraccount)
                 listofusers.append(MiniProjectPart1.UserAccount(useraccount.username, useraccount.password, useraccount.email, listofusers, useraccount.userid))
+                listofusers.remove(useraccount)
             # Reinstating a user account as a student account requires the input and validation of the course, which if unsuccessful in the number of allotted attempts, the account will remain unchanged.
             else:
                 validcourse = False

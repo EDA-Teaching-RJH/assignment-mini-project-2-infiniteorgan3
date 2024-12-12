@@ -25,6 +25,45 @@ class UserAccount:
         return f"UserID: {self.userid}: Username: {self.username}, Email: {self.email}, Password: {self.password}"
     
     
+    @property
+    def username(self):
+        return self._username
+
+    @username.setter
+    def username(self, username):
+        if not username or self.checkusername(username, self.listofotherusers) == "":
+            raise ValueError("The username is already taken or is invalid.")
+        self._username = username
+    
+    @property
+    def password(self):
+        return self._password
+    
+    @password.setter
+    def password(self, password):
+        if not password:
+            raise ValueError("The password entered is invalid.")
+        self._password = password
+    
+    @property
+    def email(self):
+        return self._email
+    
+    @email.setter
+    def email(self, email):
+        if not email:
+            raise ValueError("The email is invalid.")
+        self._email = email
+        
+    @property
+    def userid(self):
+        return self._userid
+    
+    @userid.setter
+    def userid(self, userid):
+        self._userid = userid
+        
+    
     # The user ID is iterated, and the value of the current user ID is based on the the length of the total list of users (initialised at the start of the main program).
     def assignuserid(self, listofusers):
         matches = [0]

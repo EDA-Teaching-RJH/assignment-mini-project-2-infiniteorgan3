@@ -97,7 +97,8 @@ def validateemail(email):
     if re.search(r"$(\w|(-|_|\.)(\w))+@[A-Za-z](\w |(-|\.)\w)+(\.[A-Za-z]{2,})+^", email) == None:
         print("This email has an invalid format.")
         return None
-    return email
+    else:
+        return email
         
 def validateusername(username):
     reasons = []
@@ -107,7 +108,8 @@ def validateusername(username):
         if re.search(r"(.)*[^\w\.-](.)*", username):
             reasons.append("The username contains invalid characters.")
         return reasons
-    return username
+    else:
+        return username
 
 def validatepassword(password):
     if re.search(r"[\w\.\+-*=#\(\)&!?%]{8, }") == None:
@@ -116,7 +118,8 @@ def validatepassword(password):
         if re.search(r"(.)*[^\w\.\+-*=#\(\)&!?%](.)*"):
             print("The password is invalid because it contains invalid characters.")
         return None
-    return password
+    else:
+        return password
 
 def saveoneaccount(username, listofusers):
     useraccount = [account for account in listofusers if account.username == username]

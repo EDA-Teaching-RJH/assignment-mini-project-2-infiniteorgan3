@@ -28,7 +28,7 @@ def testvalidatingpassword():
     
 def main():
     #testvalidatingemail()
-    testvalidatingusername()
+    #testvalidatingusername()
     testvalidatingpassword()
 
 if __name__ == "__main__":

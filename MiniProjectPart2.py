@@ -125,7 +125,7 @@ def searchforaccount(username, listofusers):
         # Checking whether the username is in the list of all of the usernames, and print an appropriate message and the user information if found.
         if username in usernamelist:
             print("A user has been found.")
-            print([user for user in listofusers if user.username == username])
+            print(str([user for user in listofusers if user.username == username]))
         else:
             print("There was no user found.")
     # If the CSV file does not exist, then save the list of users so that the CSV file is created.

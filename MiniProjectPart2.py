@@ -279,8 +279,8 @@ def initialiselistofaccounts():
             else:
                 listofusers.append(MiniProjectPart1.UserAccount(row[1], row[3], row[2], int(row[0])))
     except FileNotFoundError:
-        # If the file does noesist then it should be created, although it will be an empty file initally.
-        saveaccounts()
+        # If the file does not exist then it should be created, although it will be an empty file initally.
+        saveaccounts(listofusers)
         pass
     # Returns an empty list if the file does not exist or a list of values if it already exists.
     return listofusers              

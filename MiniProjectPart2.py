@@ -251,7 +251,7 @@ def changeaccounttype(userid, listofusers):
                     courseinput = input("Please enter the course that the user is entering.").upper()
                 # Ensuring that the course is valid to be added as a parameter of the new student account.
                     try:
-                        listofusers.append(MiniProjectPart1.StudentAccount(useraccount.username, useraccount.password, useraccount.email, courseinput, listofusers useraccount.userid))
+                        listofusers.append(MiniProjectPart1.StudentAccount(useraccount.username, useraccount.password, useraccount.email, courseinput, listofusers, useraccount.userid))
                         validcourse == True
                         # Removing the old user account if the new student account is instated.
                         listofusers.remove(useraccount)

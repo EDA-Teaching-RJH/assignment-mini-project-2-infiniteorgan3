@@ -108,7 +108,7 @@ def deleteaccount(userid, listofusers):
         if attemptedresultreturn != []:
             # The user is removed from the list and the CSV file is overwritten, and saved.
             listofusers.remove(attemptedresultreturn)
-            saveaccounts()
+            saveaccounts(listofusers)
         else:
             print("The user could not be found.")
 
@@ -132,7 +132,7 @@ def searchforaccount(username, listofusers):
     # If the CSV file does not exist, then save the list of users so that the CSV file is created.
     except FileNotFoundError:
         print("No users currently exist, creating the file for all user information.")
-        saveaccounts()
+        saveaccounts([])
 
 # Validating the email passed to the function using a regular expression to find whether the email fits into the specified format.
 def validateemail(email):
@@ -223,7 +223,7 @@ def editcourse(userid, listofusers):
                 print("Please try again, your request could not be completed.")
             else:
                 print("The course was changed successfully.")
-                saveaccounts()
+                saveaccounts(listofusers)
         else:
             print("The account with which you are attempting to perform this operation is not a student account, please try again or change their account type.")
 
@@ -236,16 +236,16 @@ def changeaccounttype(userid, listofusers):
         print("The ID you have entered is invalid.")
     else:
         # The state of the account can only be edited if the account exists, and so its existence must be verified.
-        useraccount = (account for account in listofusers if account.userid == userid)
-        print(useraccount)
-        if useraccount == None:
+        rows = searchingoneaccount(userid)
+        if rows == None:
             print("The user account being searched does not exist.")
         else:
             # Reinstating a student account as a general user account, only requring the removal of the course variable from the student account as well as removing the old student account version of their account.
-            if isinstance(useraccount, MiniProjectPart1.StudentAccount) == True:
-                newaccount = MiniProjectPart1.UserAccount(useraccount.username, useraccount.password, useraccount.email, listofusers, useraccount.userid)
+            if rows[4] == "Yes":
+                account = getaccount(userid, listofusers)
+                listofusers.remove(account)
+                newaccount = MiniProjectPart1.UserAccount(rows[1], rows[3], rows[2], listofusers, int(userid))
                 listofusers.append(newaccount)
-                listofusers.remove(useraccount)
             # Reinstating a user account as a student account requires the input and validation of the course, which if unsuccessful in the number of allotted attempts, the account will remain unchanged.
             else:
                 validcourse = False
@@ -254,24 +254,38 @@ def changeaccounttype(userid, listofusers):
                     courseinput = input("Please enter the course that the user is entering.").upper()
                 # Ensuring that the course is valid to be added as a parameter of the new student account.
                     try:
-                        newaccount = MiniProjectPart1.StudentAccount(useraccount.username, useraccount.password, useraccount.email, courseinput, listofusers, useraccount.userid)
+                        # Removing the old user account if the new student account is instated.
+                        account = getaccount(userid, listofusers)
+                        listofusers.remove(account)
+                        newaccount = MiniProjectPart1.StudentAccount(rows[1], rows[3], rows[2], courseinput, listofusers, int(userid))
                         listofusers.append(newaccount)
                         validcourse == True
-                        # Removing the old user account if the new student account is instated.
-                        listofusers.remove(useraccount)
                     except ValueError:
                         print("The course that you have entered is not valid, please try again.")
                     attempts -= 1
                 if attempts == 0:
                     print("Please try again, your request could not be completed.")
             # Saving the states of the accounts irrespective of the request failing or succeeding.
-            saveaccounts()
+            saveaccounts(listofusers)
 
-# This searches for the user account and the data within it without the validation or return 
-#def searchingoneaccount(userid):
-#    with open("allaccountinfo.csv", "r")
+# This searches for the user account and the data within it without the validation, as this has been handled already by the funvtion in which it has been called.
+def searchingoneaccount(userid):
+    with open("allaccountinfo.csv", "r", newline = "") as filereader:
+        reader = csv.reader(filereader)
+        for rows in reader:
+            try:
+                if int(rows[0]) == userid:
+                    return rows
+            except ValueError:
+                continue
+    print("Account not found.")
+    return None
 
-
+def getaccount(userid, listofusers):
+    for account in listofusers:
+        if account.userid == userid:
+            return account
+    return None
 # Initialising the list of users so that all of the user information can be accessed from starting the program without potentially causing issues like duplicating user information or losing it unintentionally.
 def initialiselistofaccounts():
     # Initialising the list of user accounts from the CSV file in which they are saved.
@@ -322,7 +336,7 @@ def main():
                 userid = input("What is the user id of the account that you would like to delete?\n").strip()
                 deleteaccount(userid, listofusers)
             case "save all":
-                saveaccounts()
+                saveaccounts(listofusers)
             case "save one":
                 username = input("What is the username of the account that you would like to save to a text file?\n").strip()
                 saveoneaccount(username, listofusers)

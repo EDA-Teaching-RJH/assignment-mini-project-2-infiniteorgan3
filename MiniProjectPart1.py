@@ -23,6 +23,7 @@ class UserAccount:
     # This is defined for when an individual user account is being saved to a text file, which is the same for the overridden method for the StudentAccount child class.
     def __str__(self):
         return f"UserID: {self.userid}: Username: {self.username}, Email: {self.email}, Password: {self.password}"
+        
     
     
     @property

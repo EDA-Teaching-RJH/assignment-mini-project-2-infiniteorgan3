@@ -125,7 +125,8 @@ def searchforaccount(username, listofusers):
         # Checking whether the username is in the list of all of the usernames, and print an appropriate message and the user information if found.
         if username in usernamelist:
             print("A user has been found.")
-            print(str((user for user in listofusers if user.username == username)))
+            account = (user for user in listofusers if user.username == username)
+            print(account)
         else:
             print("There was no user found.")
     # If the CSV file does not exist, then save the list of users so that the CSV file is created.
@@ -236,12 +237,14 @@ def changeaccounttype(userid, listofusers):
     else:
         # The state of the account can only be edited if the account exists, and so its existence must be verified.
         useraccount = (account for account in listofusers if account.userid == userid)
+        print(useraccount)
         if useraccount == None:
             print("The user account being searched does not exist.")
         else:
             # Reinstating a student account as a general user account, only requring the removal of the course variable from the student account as well as removing the old student account version of their account.
             if isinstance(useraccount, MiniProjectPart1.StudentAccount) == True:
-                listofusers.append(MiniProjectPart1.UserAccount(useraccount.username, useraccount.password, useraccount.email, listofusers, useraccount.userid))
+                newaccount = MiniProjectPart1.UserAccount(useraccount.username, useraccount.password, useraccount.email, listofusers, useraccount.userid)
+                listofusers.append(newaccount)
                 listofusers.remove(useraccount)
             # Reinstating a user account as a student account requires the input and validation of the course, which if unsuccessful in the number of allotted attempts, the account will remain unchanged.
             else:
@@ -251,7 +254,8 @@ def changeaccounttype(userid, listofusers):
                     courseinput = input("Please enter the course that the user is entering.").upper()
                 # Ensuring that the course is valid to be added as a parameter of the new student account.
                     try:
-                        listofusers.append(MiniProjectPart1.StudentAccount(useraccount.username, useraccount.password, useraccount.email, courseinput, listofusers, useraccount.userid))
+                        newaccount = MiniProjectPart1.StudentAccount(useraccount.username, useraccount.password, useraccount.email, courseinput, listofusers, useraccount.userid)
+                        listofusers.append(newaccount)
                         validcourse == True
                         # Removing the old user account if the new student account is instated.
                         listofusers.remove(useraccount)
@@ -262,6 +266,11 @@ def changeaccounttype(userid, listofusers):
                     print("Please try again, your request could not be completed.")
             # Saving the states of the accounts irrespective of the request failing or succeeding.
             saveaccounts()
+
+# This searches for the user account and the data within it without the validation or return 
+#def searchingoneaccount(userid):
+#    with open("allaccountinfo.csv", "r")
+
 
 # Initialising the list of users so that all of the user information can be accessed from starting the program without potentially causing issues like duplicating user information or losing it unintentionally.
 def initialiselistofaccounts():

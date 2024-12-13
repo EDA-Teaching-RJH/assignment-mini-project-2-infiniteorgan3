@@ -103,9 +103,9 @@ def deleteaccount(userid, listofusers):
         print("The ID you have entered is invalid.")
     else:
         # Find the user associated with the user ID.
-        attemptedresultreturn = [account for account in listofusers if account.userid == userid]
+        attemptedresultreturn = getaccount(userid, listofusers)
         # The deletion can only be completed if the account associated with the user ID exists, and so it is checked.
-        if attemptedresultreturn != []:
+        if attemptedresultreturn != None:
             # The user is removed from the list and the CSV file is overwritten, and saved.
             listofusers.remove(attemptedresultreturn)
             saveaccounts(listofusers)
@@ -199,7 +199,7 @@ def editcourse(userid, listofusers):
         print("The ID you have entered is invalid.")
     else:
         # Find the user associated with the user ID.
-        useraccount = (account for account in listofusers if account.userid == userid)
+        useraccount = getaccount(userid, listofusers)
         # The course of the student account can only be edited if the account exists, and so its existence must be verified.
         if useraccount == None:
             print("The account was not found, please try again.")
@@ -214,10 +214,10 @@ def editcourse(userid, listofusers):
                 courseinput = input("Please enter the course that the user is being changed to.").upper()
                 try:
                     useraccount.coursesubject = courseinput
-                    validcourse == True
+                    validcourse = True
                 except ValueError:
                     print("The course that you have entered is not valid, please try again.")
-                    attempts -= 1
+                attempts -= 1
                 # If no valid course is entered, then exit the function with a message and do not save the CSV file.
             if attempts == 0:
                 print("Please try again, your request could not be completed.")
